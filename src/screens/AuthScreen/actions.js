@@ -1,6 +1,7 @@
 import { GOOGLE_ANDROID_CLIENT, BACKEND_URL } from "react-native-dotenv";
 import * as Google from "expo-google-app-auth";
 import Axios from "axios";
+import userStore from "../../mobx/user";
 
 export const signIn = async () => {
   try {
@@ -16,7 +17,8 @@ export const signIn = async () => {
             Authorization: idToken,
           },
         });
-        console.log(response.config, "1");
+        userStore.setToken(response.data.auth_token);
+        userStore.setData(response.data.user);
       } catch (e) {
         console.log(e.message);
       }

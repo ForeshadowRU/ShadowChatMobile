@@ -1,12 +1,19 @@
 import { observable } from "mobx";
-
+import { enableLogging } from "mobx-logger";
 let index = 0;
 
+enableLogging({
+  action: true,
+  reaction: false,
+  transaction: true,
+  compute: true,
+});
 class UserStore {
   @observable userStore = {
     token: null,
     firstname: null,
     lastname: null,
+    avatar: null,
   };
 
   setToken(token) {
@@ -14,7 +21,7 @@ class UserStore {
   }
 
   setData(data) {
-    this.userStore = { ...data, token: this.UserStore.token };
+    this.userStore = { ...data, token: this.userStore.token };
   }
 }
 
